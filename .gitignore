@@ -1,6 +1,4 @@
 .idea/
 backend/__pycache__/
 backend/.idea/
-
-# dependencies
 frontend/node_modules/
