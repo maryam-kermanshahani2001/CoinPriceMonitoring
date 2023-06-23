@@ -1,0 +1,43 @@
+#coin news docker
+https://github.com/amirhnajafiz/coinnews
+
+docker pull amirhossein21/coinnews.linux:v0.2
+
+docker run -d ^  --name coinnews-container ^  --mount type=bind,source="%cd%\config.yml",target=/go/src/app/config.yml ^  -p 8000:8000 ^  amirhossein21/coinnews.linux:v0.2
+
+Coinnews API Documents
+You can get data from the three following endpoints.
+/api/data
+Returns a list of available currencies.
+
+["bitcoin", "examplecoin"]
+                        
+/api/data/{name}
+Returns price of a specific currency.
+
+{
+  "name": "bitcoin",
+  "value": 499,
+  "market_value": 499,
+  "roc": -0.2,
+  "updated_at": "2023-06-01T09:45:46.4501+03:30"
+}
+                        
+/api/data/{name}/history
+Returns the changes of a specific currency.
+
+[
+  {
+    "value": 500,
+    "date": "2023-06-01T09:56:25.220238+03:30"
+  },
+  {
+    "value": 501,
+    "date": "2023-06-01T09:56:25.220881+03:30"
+  },
+  {
+    "value": 499,
+    "date": "2023-06-01T09:56:27.223426+03:30"
+  }
+]
+                        
