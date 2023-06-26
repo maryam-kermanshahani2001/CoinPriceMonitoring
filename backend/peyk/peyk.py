@@ -1,8 +1,4 @@
-import json
-import string
-from typing import Union
-from db.Schema import *
-from fastapi import FastAPI, File, HTTPException, Response, UploadFile
+from fastapi import FastAPI
 import uvicorn
 from db.Postgres import *
 from fastapi.middleware.cors import CORSMiddleware

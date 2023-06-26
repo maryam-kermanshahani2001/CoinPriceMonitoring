@@ -97,3 +97,10 @@
 #
 # if __name__ == '__main__':
 #     uvicorn.run("main:app", host='localhost', port=8000, reload=True)
+
+
+# if __name__ == '__main__':
+#     response = send_simple_message(EMAIL_ADDRESS, SUBJECT, TEXT)
+#     print(response.json())
+
+

@@ -1,4 +1,4 @@
-from mailgun.mailgun import send_simple_message
+from mailgun import Mailgun
 from db.Schema import *
 import asyncio
 import requests
@@ -51,7 +51,8 @@ def sendMail(email, CoinName, mode):
     else:
         m += 'decreasing!'
     text = f'Hi,Notice that {CoinName} is {m}'
-    send_simple_message(email, subject, text)
+    # mailgun_instance = Mailgun.Mailgun()
+    Mailgun.send_simple_message(email, subject, text)
     print('Email sent successfully!')
 
 

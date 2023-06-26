@@ -1,0 +1,11 @@
+{
+  "MAILGUN_DOMAIN": "sandbox70b70422770e452daeb452a18e06b282.mailgun.org",
+  "MAILGUN_API_KEY": "1d3565c0fe4dced873335adae8be62a3-135a8d32-117af8df",
+  "PROJECT_HOST": "0.0.0.0",
+  "PROJECT_PORT": 7080,
+  "COIN_NEWS_HOST": "coinnews-container",
+  "COIN_NEWS_PORT": "8000",
+  "API_ROUTE": "https://api.rebrandly.com/v1/links",
+  "API_KEY": "4adccf2c26c4471e914d35ad07d39a07",
+  "WORKSPACE": "0da772c71e864a24be1b05aa7d1dce53"
+}

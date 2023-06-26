@@ -5,4 +5,4 @@ sqlalchemy
 databases
 psycopg2-binary
 asyncpg
-requests==2.26.0
+requests

@@ -1,8 +1,5 @@
 import sqlalchemy
 import databases
-import json
-from pydantic import BaseModel, validator
-from db.Schema import *
 
 DATABASE_URL = 'postgresql://root:hIW5IrLdxhMsBDy2XYsTw6Xz@billy.iran.liara.ir:33737/postgres'
 database = databases.Database(DATABASE_URL)
@@ -31,6 +28,7 @@ AlertSubscriptions_table = sqlalchemy.Table(
 )
 
 metadata.create_all(engine)
+
 
 def get_from_Alert(CoinName):
     try:
@@ -68,11 +66,11 @@ def get_from_Prices(CoinName):
         return []
 
 
-
 def check_database_connection():
     try:
         with engine.connect() as conn:
-            tables_exist = engine.dialect.has_table(conn, "Prices_table") and engine.dialect.has_table(conn, "AlertSubscriptions_table")
+            tables_exist = engine.dialect.has_table(conn, "Prices_table") and engine.dialect.has_table(conn,
+                                                                                                       "AlertSubscriptions_table")
             if tables_exist:
                 print("INFO: Database tables are created.")
             else:
