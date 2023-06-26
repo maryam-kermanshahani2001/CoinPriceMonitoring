@@ -1,0 +1,8 @@
+docker build -t peyk-server .
+
+docker run -p 8080:8080 --name peyk-server peyk-server
+
+docker login
+docker tag peyk-server precioux/peyk-server:latest
+
+docker push precioux/peyk-server:latest
