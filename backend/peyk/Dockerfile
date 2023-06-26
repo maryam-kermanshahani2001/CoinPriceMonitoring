@@ -5,22 +5,29 @@ WORKDIR /app
 
 COPY requirements.txt .
 
-#RUN apk add --no-cache postgresql-dev
+RUN apk add --no-cache gcc musl-dev libffi-dev openssl-dev
 
-RUN pip install -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy your source code to the container
-COPY . /app
+COPY . .
 
-# Build the project
-#CMD ["python", "/app/bepa.py"]
+# Build the project (replace "peyk:app" with the filename if needed)
+RUN python -m compileall -b . && rm -rf __pycache__
 
 # Stage 2: Run
 FROM python:3.10.12-alpine3.18
+
 WORKDIR /app
-COPY --from=builder /app/bepa.py /app
-COPY . /app
-# Expose any necessary ports
-#EXPOSE <7890>
-# Define the command to run your application
-CMD ["python", "./bepa/bepa.py"]
+
+COPY --from=builder /app .
+
+RUN apk --no-cache add libpq
+
+# Install UVicorn and other dependencies
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Expose the required port
+EXPOSE 8080
+
+# Set the entrypoint command
+CMD ["uvicorn", "peyk:app", "--host", "0.0.0.0", "--port", "8080"]

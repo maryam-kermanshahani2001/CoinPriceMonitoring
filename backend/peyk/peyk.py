@@ -50,22 +50,12 @@ async def subscribe_coin(info:Info):
     return f"Your submission was registered."
 
 
-# # curl -X GET "http://localhost:8000/check_email/?id=5"
+
 @app.get("/price/")
 async def get_price_history(coin_name: str):
     try:
         print(f"INFO: Got price history from prices_table for {coin_name}")
         return get_from_Prices(coin_name)
-        # with engine.connect() as conn:
-        #     query = Prices_table.select().where(Prices_table.CoinName == coin_name)
-        #     result = conn.execute(query)
-        #     data = result.fetchall()
-        #     if not data:
-        #         print(f"INFO: Got price history from prices_table for {coin_name}")
-        #         return [dict(row) for row in data]
-        #     else:
-        #         print(f"INFO: No data found in DB for {coin_name}")
-        #         return []
     except Exception as e:
         print(f"ERROR: Failed to get data from DB for {coin_name}")
         print(f"Error message: {e}")
