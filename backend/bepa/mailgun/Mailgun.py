@@ -2,12 +2,13 @@ import requests
 import json
 
 
-with open('../config.json') as json_config_file:
-    config_data = json.load(json_config_file)
+# with open('config.json') as json_config_file:
+#     config_data = json.load(json_config_file)
 
-
-DOMAIN = config_data["MAILGUN_DOMAIN"]
-API_KEY = config_data["MAILGUN_API_KEY"]
+DOMAIN ="sandbox70b70422770e452daeb452a18e06b282.mailgun.org"
+API_KEY = "1d3565c0fe4dced873335adae8be62a3-135a8d32-117af8df"
+# DOMAIN = config_data["MAILGUN_DOMAIN"]
+# API_KEY = config_data["MAILGUN_API_KEY"]
 # TEXT = f"""
 #         <h1>BOOO </h1>
 #
