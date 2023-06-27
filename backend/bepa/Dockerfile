@@ -26,4 +26,4 @@ WORKDIR /app
 # Define the command to run your application
 CMD ["/bin/sh"]
 
-#CMD ["python", "./bepa/bepa.py"]
+#CMD ["python", "./bepa.py"]

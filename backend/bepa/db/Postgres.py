@@ -24,11 +24,16 @@ AlertSubscriptions_table = sqlalchemy.Table(
     sqlalchemy.Column("Id", sqlalchemy.Integer, primary_key=True, autoincrement=True),
     sqlalchemy.Column("Email", sqlalchemy.String),
     sqlalchemy.Column("CoinName", sqlalchemy.String),
+    # sqlalchemy.Column("checked", sqlalchemy.Boolean),
     sqlalchemy.Column("DifferencePercentage", sqlalchemy.Float)
 )
 
+
 metadata.create_all(engine)
 
+# def delete_rows():
+#     with engine.connect() as conn:
+#         delete_statement = AlertSubscriptions_table.delete().where(AlertSubscriptions_table.c.column_name == "value")
 
 def get_from_Alert(CoinName):
     try:
