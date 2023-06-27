@@ -2,13 +2,18 @@ version: '3'
 services:
   peyk-container:
     image: precioux/peyk-server:latest
+    ports:
+      - "8080:8080"
+  #    network_mode: host
+
 
   bepa:
     image: marmary2001/bepa-service-image:1
     depends_on:
       - coinnews
-    links:
-      - coinnews
+#    links:
+#      - coinnews
+    network_mode: host
 
   coinnews:
     image: amirhossein21/coinnews.linux:v0.2
@@ -16,3 +21,4 @@ services:
       - "8000:8000"
     volumes:
       - ./config/config.yml:/go/src/app/config.yml
+    network_mode: host
