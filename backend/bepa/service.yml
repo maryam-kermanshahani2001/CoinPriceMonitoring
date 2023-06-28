@@ -1,0 +1,13 @@
+---
+  kind: Service
+  apiVersion: v1
+  metadata:
+    name: coinnews-svc
+  spec:
+    ports:
+      - name: http
+        protocol: TCP
+        port: 1500
+        targetPort: 8001
+    selector:
+      app: url-shortener

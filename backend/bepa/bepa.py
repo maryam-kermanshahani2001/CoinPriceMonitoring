@@ -5,16 +5,26 @@ import requests
 from db.Postgres import *
 from datetime import datetime
 from mailgun import *
+import json
 
+
+with open('config.json') as json_config_file:
+    config_data = json.load(json_config_file)
+
+coinnews_url = config_data['COIN_NEWS_HOST']
 
 def get_data():
-    url = "http://localhost:8000/api/data"  # get list of all currencies
+    # url = "http://localhost:8000/api/data"  # get list of all currencies
+    # url = "http://coinnews-container:8000/api/data"   #get list of all currencies
+    url = coinnews_url
     response = requests.get(url)
     if response.status_code == 200:
         data = response.json()
         # get all currencies data and add to Prices table
         for CoinName in data:
-            url_currency = f"http://localhost:8000/api/data/{CoinName}"  # get currency data
+            url_currency = f"{coinnews_url}{CoinName}"  # get currency data
+            # url_currency = f"http://localhost:8000/api/data/{CoinName}"  # get currency data
+
             response_currency = requests.get(url_currency)
             data_currency = response_currency.json()
             print(data_currency)

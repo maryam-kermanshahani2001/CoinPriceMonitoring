@@ -24,6 +24,6 @@ WORKDIR /app
 # Expose any necessary ports
 #EXPOSE <7890>
 # Define the command to run your application
-CMD ["/bin/sh"]
+#CMD ["/bin/sh"]
 
-#CMD ["python", "./bepa.py"]
+CMD ["python", "./bepa.py"]

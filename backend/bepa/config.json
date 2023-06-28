@@ -1,6 +1,3 @@
 {
-  "PROJECT_HOST": "localhost",
-  "PROJECT_PORT": 7080,
-  "COIN_NEWS_HOST": "http://localhost:8000/api/data",
-  "WORKSPACE": "0da772c71e864a24be1b05aa7d1dce53"
+  "COIN_NEWS_HOST": "http://coinnews:8000/api/data"
 }
