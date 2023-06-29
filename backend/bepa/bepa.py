@@ -18,14 +18,18 @@ def get_data():
     # url = "http://coinnews-container:8000/api/data"   #get list of all currencies
     url = coinnews_url
     response = requests.get(url)
+    print(response)
     if response.status_code == 200:
         data = response.json()
+        print(data)
         # get all currencies data and add to Prices table
         for CoinName in data:
-            url_currency = f"{coinnews_url}{CoinName}"  # get currency data
+            url_currency = f"{coinnews_url}/{CoinName}"  # get currency data
+            print(url_currency)
             # url_currency = f"http://localhost:8000/api/data/{CoinName}"  # get currency data
 
             response_currency = requests.get(url_currency)
+            print(response_currency.text)
             data_currency = response_currency.json()
             print(data_currency)
             timestamp_str = data_currency['updated_at']

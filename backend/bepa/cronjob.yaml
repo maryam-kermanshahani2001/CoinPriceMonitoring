@@ -11,7 +11,8 @@ spec:
           restartPolicy: OnFailure  # Add this line
           containers:
             - name: bepa
-              image: marmary2001/bepa-image:1
+              image: marmary2001/bepa-image-debug
+#              imagePullPolicy: Never
               # Add any additional container configuration, environment variables, etc. as needed
               volumeMounts:
                 - name: config
