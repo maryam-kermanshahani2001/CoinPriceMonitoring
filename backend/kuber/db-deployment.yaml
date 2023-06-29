@@ -6,35 +6,66 @@ spec:
   replicas: 3
   selector:
     matchLabels:
-      # labels the pods
       app: postgresdb
   template:
     metadata:
       labels:
-        # The label the pods created from the pod template should have
         app: postgresdb
     spec:
       containers:
         - name: postgresdb
           image: postgres
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: db-data
+              mountPath: /var/lib/postgres/data
           env:
-            - name: POSTGRES_DB
+            - name: PGHOST
               valueFrom:
                 secretKeyRef:
                   name: db-secret
-                  key: database
+                  key: hostname
+            - name: PGPORT
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: port
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
                   name: db-secret
                   key: username
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: database
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: db-secret
                   key: password
-          ports:
-            - containerPort: 5432
+        - name: psql-command
+          image: postgres
+          command:
+            [
+              "/bin/sh",
+              "-c",
+              "psql",
+              "-h",
+              $PGHOST,
+              "-p",
+              $PGPORT,
+              "-U",
+              $POSTGRES_USER,
+              "-d",
+              $POSTGRES_DB,
+              "-c",
+              "SELECT 1;",
+              "-W",
+              $POSTGRES_PASSWORD,
+            ]
           volumeMounts:
             - name: db-data
               mountPath: /var/lib/postgres/data
