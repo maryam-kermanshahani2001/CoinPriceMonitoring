@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: peyk-server-deployment
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: peyk-server
@@ -15,21 +15,19 @@ spec:
       containers:
         - name: peyk-server
           image: precioux/peyk-server:latest
-          ports:
-            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: db-config
           env:
-            - name: PEYK_DB_USERNAME
+            - name: username
               valueFrom:
                 secretKeyRef:
                   name: db-secret
                   key: username
-            - name: PEYK_DB_PASSWORD
+            - name: password
               valueFrom:
                 secretKeyRef:
                   name: db-secret
                   key: password
-            - name: PEYK_DB_CONFIG
-              valueFrom:
-                configMapKeyRef:
-                  name: db-config
-                  key: config.yaml
+          ports:
+            - containerPort: 5432

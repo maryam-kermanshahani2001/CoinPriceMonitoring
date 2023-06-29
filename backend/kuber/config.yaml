@@ -5,5 +5,7 @@ metadata:
   labels:
     app: postgresdb
 data:
-  port: "33737"
-  db-link: "postgresql://root:hIW5IrLdxhMsBDy2XYsTw6Xz@billy.iran.liara.ir:33737/postgres"
+  host: "db-service"
+  database: "finalproject-cc"
+  port: "5432"
+  # COINNEWSURL : "coinnews:8000"

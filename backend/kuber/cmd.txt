@@ -5,12 +5,15 @@ kubectl describe
 
 #Creating database
 kubectl apply -f secret.yaml
-kubectl apply -f config.yaml
-kubectl apply -f db-service.yaml
 kubectl apply -f db-pv.yaml
 kubectl apply -f db-pvc.yaml
 kubectl apply -f db-deployment.yaml
-kubectl exec -it db-deployment-5786db875f-w6gdz -- psql -h localhost -U root --password -p 5432 postgres
+kubectl apply -f db-service.yaml
+kubectl cp create_tables.sql db-deployment-6f487688f6-bswsp:/create_tables.sql
+kubectl exec -it db-deployment-6f487688f6-bswsp -- bash
+create tables : psql -U user -d postgres -f create_tables.sql
+check: psql -U user -d postgres
+       \dt
 
 #Creating peyk server
 kubectl apply -f peyk-deployment.yaml

@@ -86,6 +86,4 @@ def check_database_connection():
     except Exception as e:
         print("ERROR: Failed to connect to the database.")
         print(f"Error message: {e}")
-#
-#
-# check_database_connection()
+
