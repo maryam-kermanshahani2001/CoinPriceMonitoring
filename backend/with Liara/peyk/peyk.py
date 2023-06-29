@@ -11,6 +11,7 @@ class Info(BaseModel):
     priceChange: float
 
 
+
 app = FastAPI(title="Peyk")
 
 app.add_middleware(
@@ -37,16 +38,17 @@ async def up():
 
 
 @app.post("/subscribe/")
-async def subscribe_coin(email: str, coin_name: str, price_change: float):
+async def subscribe_coin(info:Info):
     # insert to db
     query = AlertSubscriptions_table.insert().values(
-        Email=email,
-        CoinName=coin_name,
-        DifferencePercentage=price_change
+        Email=info.email,
+        CoinName=info.coinName,
+        DifferencePercentage=info.priceChange
     )
-    print(f'{email} added for {coin_name}')
+
     await database.execute(query=query)
     return f"Your submission was registered."
+
 
 
 @app.get("/price/")

@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: peyk-server
-          image: precioux/peyk-server:latest
+          image: precioux/peyk-server-kube:latest
           envFrom:
             - configMapRef:
                 name: db-config

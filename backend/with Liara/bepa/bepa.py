@@ -6,11 +6,12 @@ from db.Postgres import *
 from datetime import datetime
 from mailgun import *
 import json
-import os
 
 
-coinnews_url = os.environ["coinnews"]
+with open('config.json') as json_config_file:
+    config_data = json.load(json_config_file)
 
+coinnews_url = config_data['COIN_NEWS_HOST']
 
 def get_data():
     # url = "http://localhost:8000/api/data"  # get list of all currencies
@@ -50,6 +51,7 @@ def get_data():
                 print(f"Error message: {e}")
 
         print('done')
+
 
     else:
         print("Error occurred!")

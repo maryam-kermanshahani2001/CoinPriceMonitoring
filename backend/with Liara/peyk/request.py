@@ -4,19 +4,12 @@ email = "marmarakt1379@gmail.com"
 coinName = "docoin"
 priceChange = 4
 
-url = "http://127.0.0.1:2929/subscribe/"
+url = "http://localhost:8080/subscribe/?email={}&coinName={}&priceChange={}".format(email, coinName, priceChange)
 
-data = {
-    "email": email,
-    "coinName": coinName,
-    "priceChange": priceChange
-}
-
-response = requests.post(url, json=data)
+response = requests.post(url)
 
 if response.status_code == 200:
     print("Subscription successful!")
-    print(response.text)
 else:
     print(response.status_code)
     print("Failed to subscribe. Error:", response.text)

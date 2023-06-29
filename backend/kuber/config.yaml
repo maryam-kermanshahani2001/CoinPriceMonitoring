@@ -8,3 +8,4 @@ data:
   host: "db-service"
   database: "postgres"
   port: "5432"
+  coinnews: "http://coinnews:8000/api/data"

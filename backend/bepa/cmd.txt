@@ -1,7 +1,6 @@
-docker build -t bepa-service .                                       
-docker run -it --name bepa-serv-container --network host bepa-service
+docker build -t bepa-service-kube .                                       
 
 docker login
-docker tag bepa-service marmary2001/bepa-service-image:1
-docker push marmary2001/bepa-service-image:1
+docker tag bepa-service-kube precioux/bepa:latest
+docker push precioux/bepa:latest
 

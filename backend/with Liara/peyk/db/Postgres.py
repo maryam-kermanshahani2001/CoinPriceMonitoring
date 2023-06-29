@@ -1,16 +1,7 @@
 import sqlalchemy
 import databases
-import os
 
-
-database = os.environ['database']
-username = os.environ["username"]
-password = os.environ["password"]
-host = os.environ["host"]
-port = os.environ["port"]
-
-DATABASE_URL = 'postgresql://' + username+':' + \
-    password+'@'+host+':'+port+'/' + database
+DATABASE_URL = 'postgresql://root:hIW5IrLdxhMsBDy2XYsTw6Xz@billy.iran.liara.ir:33737/postgres'
 database = databases.Database(DATABASE_URL)
 
 metadata = sqlalchemy.MetaData()
@@ -20,8 +11,7 @@ engine = sqlalchemy.create_engine(DATABASE_URL)
 Prices_table = sqlalchemy.Table(
     "Prices_table",
     metadata,
-    sqlalchemy.Column("Id", sqlalchemy.Integer,
-                      primary_key=True, autoincrement=True),
+    sqlalchemy.Column("Id", sqlalchemy.Integer, primary_key=True, autoincrement=True),
     sqlalchemy.Column("CoinName", sqlalchemy.String),
     sqlalchemy.Column("Timestamp", sqlalchemy.String),
     sqlalchemy.Column("Price", sqlalchemy.Float),
@@ -31,31 +21,25 @@ Prices_table = sqlalchemy.Table(
 AlertSubscriptions_table = sqlalchemy.Table(
     "AlertSubscriptions_table",
     metadata,
-    sqlalchemy.Column("Id", sqlalchemy.Integer,
-                      primary_key=True, autoincrement=True),
+    sqlalchemy.Column("Id", sqlalchemy.Integer, primary_key=True, autoincrement=True),
     sqlalchemy.Column("Email", sqlalchemy.String),
     sqlalchemy.Column("CoinName", sqlalchemy.String),
     sqlalchemy.Column("DifferencePercentage", sqlalchemy.Float)
 )
 
-
-metadata.create_all(engine, checkfirst=True)
-
+metadata.create_all(engine)
 
 def get_from_Alert(CoinName):
-    print(f'GETTING DATA FROM ALERT TABLE')
     try:
         with engine.connect() as conn:
-            query = AlertSubscriptions_table.select().where(
-                AlertSubscriptions_table.c.CoinName == CoinName)
+            query = AlertSubscriptions_table.select().where(AlertSubscriptions_table.c.CoinName == CoinName)
             result = conn.execute(query)
             data = result.fetchall()
-            print(data)
             if data:
-                print(f"INFO: USERS FOR {CoinName}")
+                print(f"INFO: Got data from DB for {CoinName}")
                 return [dict(row) for row in data]
             else:
-                print(f"INFO: No USER found in DB for {CoinName}")
+                print(f"INFO: No data found in DB for {CoinName}")
                 return []
     except Exception as e:
         print(f"ERROR: Failed to get data from DB for {CoinName}")
@@ -81,19 +65,19 @@ def get_from_Prices(CoinName):
         return []
 
 
+
 def check_database_connection():
     try:
         with engine.connect() as conn:
-            tables_exist = engine.dialect.has_table(conn, "Prices_table") and engine.dialect.has_table(conn,
-                                                                                                       "AlertSubscriptions_table")
+            tables_exist = engine.dialect.has_table(conn, "Prices_table") and engine.dialect.has_table(conn, "AlertSubscriptions_table")
             if tables_exist:
-                print("INFO: Database tables exist.")
+                print("INFO: Database tables are created.")
             else:
-                print("INFO: Database tables do not exist.")
+                print("INFO: Database tables are not created.")
 
-            # Execute a simple query to check the database connection
-            conn.execute("SELECT 1")
+            conn.execute("SELECT 1")  # Execute a simple query to check the database connection
             print("INFO: Database connection established.")
     except Exception as e:
         print("ERROR: Failed to connect to the database.")
         print(f"Error message: {e}")
+

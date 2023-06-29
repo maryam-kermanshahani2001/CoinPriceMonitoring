@@ -8,10 +8,10 @@ spec:
     spec:
       template:
         spec:
-          restartPolicy: OnFailure  # Add this line
+          restartPolicy: OnFailure # Add this line
           containers:
             - name: bepa
-              image: marmary2001/bepa-service-image:1
+              image: marmary2001/bepa-image-debug
               envFrom:
                 - configMapRef:
                     name: db-config

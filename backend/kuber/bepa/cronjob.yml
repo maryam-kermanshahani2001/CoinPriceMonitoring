@@ -1,0 +1,30 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: bepa-cronjob
+spec:
+  schedule: "*/3 * * * *" # Run every 3 minutes
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: bepa-service
+              image: precioux/bepa:latest
+              envFrom:
+                - configMapRef:
+                    name: db-config
+              env:
+                - name: username
+                  valueFrom:
+                    secretKeyRef:
+                      name: db-secret
+                      key: username
+                - name: password
+                  valueFrom:
+                    secretKeyRef:
+                      name: db-secret
+                      key: password
+              command: ["python3"]
+              args: ["bepa.py"]
+          restartPolicy: OnFailure

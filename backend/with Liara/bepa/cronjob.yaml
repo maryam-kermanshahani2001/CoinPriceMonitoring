@@ -11,22 +11,21 @@ spec:
           restartPolicy: OnFailure  # Add this line
           containers:
             - name: bepa
-              image: marmary2001/bepa-service-image:1
+              image: marmary2001/bepa-image-debug
+#              imagePullPolicy: Never
               # Add any additional container configuration, environment variables, etc. as needed
-            - name: coinnews
-              image: amirhossein21/coinnews.linux:v0.2
-              ports:
-                - containerPort: 8000
               volumeMounts:
-                - name: config-volume
-                  mountPath: /go/src/app/config.yml
+                - name: config
+                  mountPath: app/config.json
+                  subPath: config.json
+
           volumes:
-            - name: config-volume
+            - name: config
               configMap:
-                name: config-map
-                items:
-                  - key: config.yml
-                    path: config.yml
+                name: bepa-service-configmap
+#                items:
+#                  - key: configmap.yml
+#                    path: configmap.yml
   concurrencyPolicy: Allow
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 3
