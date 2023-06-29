@@ -46,29 +46,6 @@ spec:
                 secretKeyRef:
                   name: db-secret
                   key: password
-        - name: psql-command
-          image: postgres
-          command:
-            [
-              "/bin/sh",
-              "-c",
-              "psql",
-              "-h",
-              $PGHOST,
-              "-p",
-              $PGPORT,
-              "-U",
-              $POSTGRES_USER,
-              "-d",
-              $POSTGRES_DB,
-              "-c",
-              "SELECT 1;",
-              "-W",
-              $POSTGRES_PASSWORD,
-            ]
-          volumeMounts:
-            - name: db-data
-              mountPath: /var/lib/postgres/data
       volumes:
         - name: db-data
           persistentVolumeClaim:
