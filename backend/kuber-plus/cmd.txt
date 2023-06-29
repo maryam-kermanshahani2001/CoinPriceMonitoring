@@ -10,7 +10,6 @@ kubectl apply -f db-service.yaml
 kubectl apply -f db-pv.yaml
 kubectl apply -f db-pvc.yaml
 kubectl apply -f db-deployment.yaml
-kubectl exec -it db-deployment-5786db875f-w6gdz -- psql -h localhost -U root --password -p 5432 postgres
 
 #Creating peyk server
 kubectl apply -f peyk-deployment.yaml

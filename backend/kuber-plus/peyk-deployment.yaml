@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: peyk-server-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: peyk-server
+  template:
+    metadata:
+      labels:
+        app: peyk-server
+    spec:
+      containers:
+        - name: peyk-server
+          image: precioux/peyk-server:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: PEYK_DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: username
+            - name: PEYK_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: password
+            - name: PEYK_DB_CONFIG
+              valueFrom:
+                configMapKeyRef:
+                  name: db-config
+                  key: config.yaml

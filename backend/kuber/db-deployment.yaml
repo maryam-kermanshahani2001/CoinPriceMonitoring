@@ -3,35 +3,50 @@ kind: Deployment
 metadata:
   name: db-deployment
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
-      app: my-app
+      app: postgresdb
   template:
     metadata:
       labels:
-        app: my-app
+        app: postgresdb
     spec:
       containers:
-        - name: postgresql
-          image: postgres:latest
+        - name: postgresdb
+          image: postgres
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: db-data
+              mountPath: /var/lib/postgres/data
           env:
+            - name: PGHOST
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: hostname
+            - name: PGPORT
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: port
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
                   name: db-secret
                   key: username
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: database
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: db-secret
                   key: password
-          ports:
-            - containerPort: 5432
-          volumeMounts:
-            - name: data
-              mountPath: /var/lib/postgresql/data
       volumes:
-        - name: data
+        - name: db-data
           persistentVolumeClaim:
-            claimName: db-pvc
+            claimName: db-pvc2
