@@ -1,0 +1,32 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: bepa-cronjob
+spec:
+  schedule: "*/3 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure  # Add this line
+          containers:
+            - name: bepa
+              image: marmary2001/bepa-service-image:1
+              # Add any additional container configuration, environment variables, etc. as needed
+            - name: coinnews
+              image: amirhossein21/coinnews.linux:v0.2
+              ports:
+                - containerPort: 8000
+              volumeMounts:
+                - name: config-volume
+                  mountPath: /go/src/app/config.yml
+          volumes:
+            - name: config-volume
+              configMap:
+                name: config-map
+                items:
+                  - key: config.yml
+                    path: config.yml
+  concurrencyPolicy: Allow
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3

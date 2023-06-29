@@ -2,7 +2,8 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: db-config
+  labels:
+    app: postgresdb
 data:
-  config.yaml: |
-    port: 33737
-    db-link: postgresql://root:hIW5IrLdxhMsBDy2XYsTw6Xz@billy.iran.liara.ir:33737/postgres
+  port: "33737"
+  db-link: "postgresql://root:hIW5IrLdxhMsBDy2XYsTw6Xz@billy.iran.liara.ir:33737/postgres"

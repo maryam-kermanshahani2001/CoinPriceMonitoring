@@ -3,26 +3,19 @@ kind: Deployment
 metadata:
   name: db-deployment
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      # labels the pods
-      app: postgresdb
+      app: my-app
   template:
     metadata:
       labels:
-        # The label the pods created from the pod template should have
-        app: postgresdb
+        app: my-app
     spec:
       containers:
-        - name: postgresdb
-          image: postgres
+        - name: postgresql
+          image: postgres:latest
           env:
-            - name: POSTGRES_DB
-              valueFrom:
-                secretKeyRef:
-                  name: db-secret
-                  key: database
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
@@ -36,9 +29,9 @@ spec:
           ports:
             - containerPort: 5432
           volumeMounts:
-            - name: db-data
-              mountPath: /var/lib/postgres/data
+            - name: data
+              mountPath: /var/lib/postgresql/data
       volumes:
-        - name: db-data
+        - name: data
           persistentVolumeClaim:
-            claimName: db-pvc2
+            claimName: db-pvc
