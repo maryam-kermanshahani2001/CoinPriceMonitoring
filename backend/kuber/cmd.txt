@@ -18,6 +18,8 @@ check: psql -U user -d postgres
 #Creating peyk server
 kubectl apply -f peyk-deployment.yaml
 kubectl apply -f peyk-service.yaml
+minikube service peyk-server-service
+http://127.0.0.1:12437/up
 
 #create bepa and coinnews
 #conf najafizadeh

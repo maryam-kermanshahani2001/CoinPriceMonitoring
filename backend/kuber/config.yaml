@@ -6,6 +6,5 @@ metadata:
     app: postgresdb
 data:
   host: "db-service"
-  database: "finalproject-cc"
+  database: "postgres"
   port: "5432"
-  # COINNEWSURL : "coinnews:8000"

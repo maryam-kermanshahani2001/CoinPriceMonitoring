@@ -12,6 +12,22 @@ spec:
           containers:
             - name: bepa
               image: marmary2001/bepa-service-image:1
+              envFrom:
+                - configMapRef:
+                    name: db-config
+              env:
+                - name: username
+                  valueFrom:
+                    secretKeyRef:
+                      name: db-secret
+                      key: username
+                - name: password
+                  valueFrom:
+                    secretKeyRef:
+                      name: db-secret
+                      key: password
+              command: ["python3"]
+              args: ["bepa.py"]
               # Add any additional container configuration, environment variables, etc. as needed
             - name: coinnews
               image: amirhossein21/coinnews.linux:v0.2

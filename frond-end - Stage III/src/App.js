@@ -1,6 +1,6 @@
 import './App.css'; // Import the CSS file
 import React, { useState } from 'react';
-const API_BASE_URL = 'peyk-server-service:8080'; // Update with your backend URL
+const API_BASE_URL = 'http://127.0.0.1:12437'; // Update with your backend URL
 
 function App() {
   const [email, setEmail] = useState('');
