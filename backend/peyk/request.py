@@ -4,7 +4,7 @@ email = "marmarakt1379@gmail.com"
 coinName = "docoin"
 priceChange = 4
 
-url = "http://127.0.0.1:2929/subscribe/"
+url = "http://127.0.0.1:9076/subscribe/"
 
 data = {
     "email": email,
